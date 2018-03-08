@@ -30,7 +30,7 @@ final class Definition
      * @param Transition[] $transitions
      * @param string|null  $initialPlace
      */
-    public function __construct(array $places, array $transitions, string $initialPlace = null)
+    public function __construct(array $places, array $transitions, $initialPlace = null)
     {
         foreach ($places as $place) {
             $this->addPlace($place);
@@ -54,7 +54,7 @@ final class Definition
     /**
      * @return string[]
      */
-    public function getPlaces(): array
+    public function getPlaces()
     {
         return $this->places;
     }
@@ -62,12 +62,12 @@ final class Definition
     /**
      * @return Transition[]
      */
-    public function getTransitions(): array
+    public function getTransitions()
     {
         return $this->transitions;
     }
 
-    private function setInitialPlace(string $place = null)
+    private function setInitialPlace($place)
     {
         if (null === $place) {
             return;
@@ -80,9 +80,9 @@ final class Definition
         $this->initialPlace = $place;
     }
 
-    private function addPlace(string $place)
+    private function addPlace($place)
     {
-        if (!preg_match('{^[\w_-]+$}', $place)) {
+        if (!preg_match('{^[\w\d_-]+$}', $place)) {
             throw new InvalidArgumentException(sprintf('The place "%s" contains invalid characters.', $place));
         }
 

@@ -1,11 +1,6 @@
 CHANGELOG
 =========
 
-4.0.0
------
-
- * Removed class name support in `WorkflowRegistry::add()` as second parameter.
-
 3.4.0
 -----
 

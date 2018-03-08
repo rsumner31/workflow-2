@@ -23,7 +23,7 @@ use Symfony\Component\Workflow\MarkingStore\MultipleStateMarkingStore;
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class Workflow implements WorkflowInterface
+class Workflow
 {
     private $definition;
     private $markingStore;
@@ -39,7 +39,13 @@ class Workflow implements WorkflowInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the object's Marking.
+     *
+     * @param object $subject A subject
+     *
+     * @return Marking The Marking
+     *
+     * @throws LogicException
      */
     public function getMarking($subject)
     {
@@ -77,7 +83,12 @@ class Workflow implements WorkflowInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Returns true if the transition is enabled.
+     *
+     * @param object $subject        A subject
+     * @param string $transitionName A transition
+     *
+     * @return bool true if the transition is enabled
      */
     public function can($subject, $transitionName)
     {
@@ -102,7 +113,15 @@ class Workflow implements WorkflowInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Fire a transition.
+     *
+     * @param object $subject        A subject
+     * @param string $transitionName A transition
+     *
+     * @return Marking The new Marking
+     *
+     * @throws LogicException If the transition is not applicable
+     * @throws LogicException If the transition does not exist
      */
     public function apply($subject, $transitionName)
     {
@@ -145,7 +164,11 @@ class Workflow implements WorkflowInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Returns all enabled transitions.
+     *
+     * @param object $subject A subject
+     *
+     * @return Transition[] All enabled transitions
      */
     public function getEnabledTransitions($subject)
     {
@@ -161,16 +184,13 @@ class Workflow implements WorkflowInterface
         return $enabled;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return $this->name;
     }
 
     /**
-     * {@inheritdoc}
+     * @return Definition
      */
     public function getDefinition()
     {
@@ -178,7 +198,7 @@ class Workflow implements WorkflowInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return MarkingStoreInterface
      */
     public function getMarkingStore()
     {

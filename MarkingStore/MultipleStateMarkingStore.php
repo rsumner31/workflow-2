@@ -29,11 +29,7 @@ class MultipleStateMarkingStore implements MarkingStoreInterface
     private $property;
     private $propertyAccessor;
 
-    /**
-     * @param string                         $property
-     * @param PropertyAccessorInterface|null $propertyAccessor
-     */
-    public function __construct($property = 'marking', PropertyAccessorInterface $propertyAccessor = null)
+    public function __construct(string $property = 'marking', PropertyAccessorInterface $propertyAccessor = null)
     {
         $this->property = $property;
         $this->propertyAccessor = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();
@@ -53,5 +49,13 @@ class MultipleStateMarkingStore implements MarkingStoreInterface
     public function setMarking($subject, Marking $marking)
     {
         $this->propertyAccessor->setValue($subject, $this->property, $marking->getPlaces());
+    }
+
+    /**
+     * @return string
+     */
+    public function getProperty()
+    {
+        return $this->property;
     }
 }

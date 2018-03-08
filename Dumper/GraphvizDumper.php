@@ -201,7 +201,7 @@ class GraphvizDumper implements DumperInterface
         return strtolower(preg_replace('/[^\w]/i', '_', $id));
     }
 
-    private function addAttributes(array $attributes): string
+    private function addAttributes(array $attributes)
     {
         $code = array();
 
@@ -212,7 +212,7 @@ class GraphvizDumper implements DumperInterface
         return $code ? ', '.implode(', ', $code) : '';
     }
 
-    private function addOptions(array $options): string
+    private function addOptions(array $options)
     {
         $code = array();
 

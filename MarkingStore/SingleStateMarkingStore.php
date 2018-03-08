@@ -28,7 +28,11 @@ class SingleStateMarkingStore implements MarkingStoreInterface
     private $property;
     private $propertyAccessor;
 
-    public function __construct(string $property = 'marking', PropertyAccessorInterface $propertyAccessor = null)
+    /**
+     * @param string                         $property
+     * @param PropertyAccessorInterface|null $propertyAccessor
+     */
+    public function __construct($property = 'marking', PropertyAccessorInterface $propertyAccessor = null)
     {
         $this->property = $property;
         $this->propertyAccessor = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();

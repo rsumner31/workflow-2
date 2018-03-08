@@ -35,13 +35,7 @@ class RegistryTest extends TestCase
      */
     public function testAddIsDeprecated()
     {
-        $registry = new Registry();
-
-        $registry->add($w = new Workflow(new Definition(array(), array()), $this->getMockBuilder(MarkingStoreInterface::class)->getMock(), $this->getMockBuilder(EventDispatcherInterface::class)->getMock(), 'workflow1'), $this->createSupportStrategy(Subject1::class));
-
-        $workflow = $registry->get(new Subject1());
-        $this->assertInstanceOf(Workflow::class, $workflow);
-        $this->assertSame('workflow1', $workflow->getName());
+        $this->registry->add(new Workflow(new Definition(array(), array()), $this->getMockBuilder(MarkingStoreInterface::class)->getMock(), $this->getMockBuilder(EventDispatcherInterface::class)->getMock(), 'workflow1'), $this->createSupportStrategy(Subject1::class));
     }
 
     public function testGetWithSuccess()

@@ -13,7 +13,6 @@ namespace Symfony\Component\Workflow;
 
 use Symfony\Component\Workflow\Exception\InvalidArgumentException;
 use Symfony\Component\Workflow\SupportStrategy\SupportStrategyInterface;
-use Symfony\Component\Workflow\SupportStrategy\WorkflowSupportStrategyInterface;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -26,17 +25,13 @@ class Registry
     /**
      * @param Workflow                 $workflow
      * @param SupportStrategyInterface $supportStrategy
-     *
-     * @deprecated since Symfony 4.1, to be removed in 5.0. Use addWorkflow() instead.
      */
     public function add(Workflow $workflow, $supportStrategy)
     {
-        @trigger_error(sprintf('%s is deprecated since Symfony 4.1. Use addWorkflow() instead.', __METHOD__), E_USER_DEPRECATED);
-        $this->workflows[] = array($workflow, $supportStrategy);
-    }
+        if (!$supportStrategy instanceof SupportStrategyInterface) {
+            throw new \InvalidArgumentException('The "supportStrategy" is not an instance of SupportStrategyInterface.');
+        }
 
-    public function addWorkflow(WorkflowInterface $workflow, WorkflowSupportStrategyInterface $supportStrategy)
-    {
         $this->workflows[] = array($workflow, $supportStrategy);
     }
 
@@ -66,7 +61,7 @@ class Registry
         return $matched;
     }
 
-    private function supports(WorkflowInterface $workflow, $supportStrategy, $subject, $workflowName): bool
+    private function supports(Workflow $workflow, SupportStrategyInterface $supportStrategy, $subject, $workflowName): bool
     {
         if (null !== $workflowName && $workflowName !== $workflow->getName()) {
             return false;
